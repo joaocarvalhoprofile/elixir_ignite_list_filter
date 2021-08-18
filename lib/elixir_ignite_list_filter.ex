@@ -1,18 +1,12 @@
 defmodule ElixirIgniteListFilter do
-  @moduledoc """
-  Documentation for `ElixirIgniteListFilter`.
-  """
+  # ["1", "3", "6", "43", "banana", "6", "abc"]
 
-  @doc """
-  Hello world.
+  def call(list), do: Enum.count(impar(list))
 
-  ## Examples
-
-      iex> ElixirIgniteListFilter.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  defp impar(list) do
+    list
+    |> Enum.filter(fn str -> String.match?(str, ~r/[0-9]+/) end)
+    |> Enum.map(fn str -> String.to_integer(str) end)
+    |> Enum.filter(fn x -> Integer.mod(x, 2) != 0 end)
   end
 end
